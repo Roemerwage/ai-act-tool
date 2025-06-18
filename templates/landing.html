@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<p>
+This tool is designed to support software architects and developers in the early stages of designing AI systems. It helps identify which obligations of the EU AI Act apply to your system and translates them into relevant software architecture quality attributes.
+</p>
+
+<p>
+The tool is not intended to verify legal compliance, but rather to help anticipate and integrate regulatory requirements into the architecture from the outset — a compliance-by-design approach. It supports informed architectural decision-making before development begins.
+</p>
+
+<h4>How the tool works</h4>
+<ul>
+  <li>You answer a short set of questions about your AI system’s characteristics and domain of use.</li>
+  <li>The tool determines whether your system may fall under prohibited, high-risk, general-purpose, or transparency-relevant categories defined in the EU AI Act.</li>
+  <li>Based on that classification, the tool shows which software architecture quality attributes (e.g., transparency, security, auditability) must be addressed, with references to legal provisions and design-oriented advice.</li>
+</ul>
+
+<h4>Legal foundation</h4>
+<p>
+This tool is based on the provisions of the officially adopted <strong>Regulation (EU) 2024/1689</strong> of the European Parliament and of the Council — the EU Artificial Intelligence Act — as published in the <em>Official Journal of the European Union, L series</em>.
+</p>
+<p>
+The tool covers obligations from Titles II–IV, including:
+</p>
+<ul>
+  <li>Prohibited AI practices (Article 5)</li>
+  <li>High-risk AI system classification and obligations (Articles 6–17, Annex III)</li>
+  <li>Transparency obligations for interactive and generative systems (Articles 50–52)</li>
+  <li>Post-market monitoring and incident reporting (Articles 61–62)</li>
+</ul>
+
+
+
+<div class="mt-4">
+  <a href="{{ url_for('page1') }}" class="btn btn-primary">Start the Assessment</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Does your system include any of the following features?</h2>
+
+<p>The following characteristics trigger transparency obligations under Articles 50 to 52 of the AI Act, regardless of the risk level of your system.</p>
+
+<form method="post">
+  <label>
+    <input type="checkbox" name="feature" value="chatbot">
+    Chatbots or AI systems interacting with humans
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="feature" value="emotion">
+    Emotion recognition or biometric categorisation 
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="feature" value="synthetic_image">
+    Generates synthetic images (deepfakes or realistic media) 
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="feature" value="synthetic_audio">
+    Generates synthetic speech or audio 
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="feature" value="synthetic_video">
+    Generates synthetic video or avatars 
+  </label><br><br>
+
+  <button type="submit">See Results</button>
+</form>
+
+<p><em>These features may require that users be explicitly informed, or that outputs be labelled or disclosed as artificial content under EU law.</em></p>
+
+{% endblock %}

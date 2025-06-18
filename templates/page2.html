@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>What type of AI system are you designing?</h2>
+
+<p>Please select the category that best describes your AI system. This will determine which obligations apply under the EU AI Act.</p>
+
+<form method="post">
+
+  <h5 class="mt-4">Select the main domain of application:</h5>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="domain" value="biometric" id="biometric">
+    <label class="form-check-label" for="biometric">
+      Biometric identification or categorisation
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="domain" value="education" id="education">
+    <label class="form-check-label" for="education">
+      Education and vocational training
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="domain" value="employment" id="employment">
+    <label class="form-check-label" for="employment">
+      Employment and worker management
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="domain" value="essential_services" id="services">
+    <label class="form-check-label" for="services">
+      Access to essential private or public services
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="domain" value="law_enforcement" id="law">
+    <label class="form-check-label" for="law">
+      Law enforcement
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="domain" value="migration" id="migration">
+    <label class="form-check-label" for="migration">
+      Migration and border control
+    </label>
+  </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="domain" value="justice" id="justice">
+        <label class="form-check-label" for="justice">
+            Administration of justice
+        </label>
+    </div>
+
+<p class="mt-2">
+  <em>Not sure?</em> <a href="https://artificialintelligenceact.eu/annex/3/" target="_blank">See definitions for each of these options in Annex III</a>.
+</p>
+
+
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="radio" name="domain" value="general" id="general">
+        <label class="form-check-label" for="general">
+            General-purpose AI system (e.g., foundation model)
+        </label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="domain" value="other" id="other">
+        <label class="form-check-label" for="other">
+            My system does not match any of these categories
+        </label>
+    </div>
+
+
+  <h5 class="mt-4">Optional: Exemption</h5>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="article112_exemption" value="yes" id="exemption">
+    <label class="form-check-label" for="exemption">
+      This AI system is part of a product that has already undergone a full EU conformity assessment (Article 112)
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-4">Continue</button>
+</form>
+
+{% endblock %}

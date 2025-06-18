@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Prohibited AI Practices – <a href="https://artificialintelligenceact.eu/article/5/" target="_blank">Article 5 AI Act</a></h2>
+
+<p>
+  The following types of AI systems are strictly prohibited under 
+  <a href="https://artificialintelligenceact.eu/article/5/" target="_blank">Article 5</a> 
+  of the AI Act. If your system includes any of these practices, you are not allowed to proceed with its development or deployment under EU law.
+</p>
+
+<p>
+  Please indicate whether any apply to your system:
+</p>
+
+<form method="post">
+  <label>
+    <input type="checkbox" name="prohibited" value="subliminal">
+    Uses subliminal techniques to materially distort a person’s behavior (Art. 5.1(a))
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="prohibited" value="exploitation">
+    Exploits vulnerabilities of children, the elderly, or disabled individuals (Art. 5.1(b))
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="prohibited" value="social_scoring">
+    Performs general-purpose social scoring of individuals (Art. 5.1(c))
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="prohibited" value="real-time-biometric">
+    Uses real-time remote biometric identification in public spaces for law enforcement, except under legal exceptions (Art. 5.1(d))
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="prohibited" value="military">
+    Intended for military use (excluded from scope under Recital 12)
+  </label><br><br>
+
+  <p>
+    <em>Not sure?</em> You can check the full list and definitions in 
+    <a href="https://artificialintelligenceact.eu/article/5/" target="_blank">Article 5 of the AI Act</a>.
+  </p>
+
+  <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+
+{% endblock %}

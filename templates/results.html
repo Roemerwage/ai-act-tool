@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Results</h2>
+<p>This overview shows which software architecture quality attributes must be addressed in your AI system’s design, based on your classification under the EU AI Act.</p>
+
+{% if grouped["Prohibited"] %}
+  <div class="alert alert-danger">
+    <strong>Your system includes one or more practices prohibited under Article 5 of the AI Act.</strong><br>
+    This means that its development or deployment is not allowed within the EU. Please consult legal experts before proceeding.
+  </div>
+
+{% elif "Transparency" in grouped and grouped|length == 1 %}
+  <div class="alert alert-info">
+    <strong>Your system is not classified as high-risk but falls under transparency obligations under the AI Act.</strong><br>
+    This includes systems such as general-purpose AI models, chatbots, or systems that generate synthetic content.<br>
+    You must comply with Articles 50–52, including informing users that they are interacting with AI and providing public summaries for foundation models.
+  </div>
+
+{% elif grouped %}
+  <div class="alert alert-warning">
+    <strong>Your system is classified as a high-risk AI system under Title III, Chapter 2 of the AI Act.</strong><br>
+    This means it is subject to mandatory requirements such as risk management, transparency, cybersecurity, monitoring, and documentation.
+  </div>
+
+{% else %}
+  <div class="alert alert-success">
+    <strong>Your system is not currently classified as high-risk, general-purpose, or otherwise regulated under the AI Act.</strong><br>
+    No mandatory architectural obligations are imposed under the AI Act. However, voluntary compliance is encouraged under Article 69 and Recital 81.
+  </div>
+{% endif %}
+
+{% for qa, rules in grouped.items() %}
+    <div class="mb-4">
+        <h4 class="text-primary">{{ qa }}</h4>
+        {% for rule in rules %}
+            <p><strong>Article:</strong> {{ rule.article }}</p>
+            <p><strong>Legal Requirement:</strong><br>{{ rule.quote }}</p>
+            <p><strong>Software Architecture Advice:</strong><br>{{ rule.advice }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+{% if not grouped %}
+    <div class="alert alert-info">
+        <strong>No architecture obligations required under the AI Act.</strong><br>
+        However, you should still consider ethical design, safety, and privacy best practices.
+    </div>
+{% endif %}
+
+<hr>
+<p><strong>Note:</strong> Even if your system is not subject to the AI Act, other European regulations such as the <em>General Data Protection Regulation (GDPR)</em>, the <em>Product Safety Regulation</em>, and <em>sector-specific laws</em> may still apply.</p>
+
+{% endblock %}
