@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+{% set prev_page = 'page1' %}  <!-- For page2 -->
+{% set prev_page = 'page2' %}  <!-- For page3 -->
+{% set prev_page = 'page3' %}  <!-- For results -->
+
 
 <h2>Does your system include any of the following features?</h2>
 
@@ -35,5 +39,12 @@
 </form>
 
 <p><em>These features may require that users be explicitly informed, or that outputs be labelled or disclosed as artificial content under EU law.</em></p>
+
+<div class="mt-4">
+  {% if request.path != '/page1' %}
+    <a href="{{ url_for(prev_page) }}" class="btn btn-secondary">← Back</a>
+  {% endif %}
+  <a href="{{ url_for('landing') }}" class="btn btn-outline-danger">Start Over</a>
+</div>
 
 {% endblock %}

@@ -6,7 +6,9 @@ app.secret_key = 'secret_key_here'
 
 @app.route('/')
 def landing():
+    session.clear()
     return render_template('landing.html')
+
 
 @app.route('/page1', methods=['GET', 'POST'])
 def page1():

@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+{% set prev_page = 'page1' %}  <!-- For page2 -->
+{% set prev_page = 'page2' %}  <!-- For page3 -->
+{% set prev_page = 'page3' %}  <!-- For results -->
+
 
 <h2>What type of AI system are you designing?</h2>
 
@@ -88,5 +92,12 @@
 
   <button type="submit" class="btn btn-primary mt-4">Continue</button>
 </form>
+
+<div class="mt-4">
+  {% if request.path != '/page1' %}
+    <a href="{{ url_for(prev_page) }}" class="btn btn-secondary">← Back</a>
+  {% endif %}
+  <a href="{{ url_for('landing') }}" class="btn btn-outline-danger">Start Over</a>
+</div>
 
 {% endblock %}
