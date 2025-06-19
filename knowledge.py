@@ -1,171 +1,291 @@
-# Updated knowledge.py file with 100% QA coverage based on the AI Act PDF
-# Each entry includes legal reference, full quote, and architecture advice
-
 architecture_rules = {
     "Security": [
         {
             "article": "Article 15 – Accuracy, robustness and cybersecurity",
+        "link": "https://artificialintelligenceact.eu/article/15/",
+        
             "quote": (
-                "High-risk AI systems shall be designed and developed in such a way, including with appropriate levels of accuracy, robustness and cybersecurity, "
-                "that they achieve, in the light of their intended purpose, an appropriate level of accuracy, robustness and cybersecurity, and perform consistently "
-                "for their intended purpose. They shall be resilient as regards errors, faults or inconsistencies that may occur within the system or due to interaction "
-                "with natural persons or other systems. High-risk AI systems shall be protected against attempts by unauthorized third parties to alter their use, "
-                "performance or functionality by exploiting the system vulnerabilities and against data poisoning. Appropriate measures shall be taken to prevent and "
-                "control for those risks through technical redundancy, fail-safe and fallback plans."
+                "High-risk AI systems shall be designed and developed in such a way, including with appropriate levels of accuracy, robustness and cybersecurity, that they achieve, in the light of their intended purpose, an appropriate level of accuracy, robustness and cybersecurity, and perform consistently for their intended purpose. They shall be resilient as regards errors, faults or inconsistencies that may occur within the system or due to interaction with natural persons or other systems. High-risk AI systems shall be protected against attempts by unauthorized third parties to alter their use, performance or functionality by exploiting the system vulnerabilities and against data poisoning. Appropriate measures shall be taken to prevent and control for those risks through technical redundancy, fail-safe and fallback plans."
             ),
             "advice": (
-                "Design system components to resist data poisoning and adversarial manipulation. Enforce strict authentication, input validation, and secure "
-                "model deployment. Apply redundancy and fallback strategies to maintain integrity under stress or compromise."
-            )
+                "Implement a defense-in-depth architecture. Use strong authentication and authorization mechanisms to ensure only "
+                "legitimate actors access the AI system. Validate and sanitize all inputs (e.g. user data, model inputs) to thwart data "
+                "poisoning or injection attacks. Encrypt sensitive data in transit and at rest to protect confidentiality. Incorporate "
+                "continuous monitoring and intrusion detection, and maintain an audit trail of system access and actions. These measures "
+                "collectively address the AI Act’s cybersecurity mandate (Art. 15) by hardening the system against unauthorized manipulation "
+                "and ensuring integrity under attack."
+            ),
+            "tactics": [
+                "Input Validation and Sanitization",
+                "Role-Based Access Control (RBAC)",
+                "Transport Layer Security (TLS)",
+                "Audit Trail for Access Logs",
+                "Intrusion Detection Systems (IDS)"
+            ]
         }
     ],
 
     "Availability": [
         {
             "article": "Article 9 – Risk management system",
+        "link": "https://artificialintelligenceact.eu/article/9/",
+        
             "quote": (
-                "A risk management system shall be established, implemented, documented and maintained in relation to high-risk AI systems. It shall consist of a "
-                "continuous, iterative process run throughout the entire lifecycle of a high-risk AI system, requiring regular systematic updating. That process shall "
-                "ensure that the high-risk AI system performs consistently for its intended purpose and under reasonably foreseeable conditions of use, and shall include "
-                "appropriate measures to identify, estimate, evaluate and handle risks."
+                "A risk management system shall be established, implemented, documented and maintained in relation to high-risk AI systems. It shall consist of a continuous, iterative process run throughout the entire lifecycle of a high-risk AI system, requiring regular systematic updating. That process shall ensure that the high-risk AI system performs consistently for its intended purpose and under reasonably foreseeable conditions of use, and shall include appropriate measures to identify, estimate, evaluate and handle risks."
             ),
             "advice": (
-                "Implement a risk-oriented design process with stress tests and simulations. Include service uptime goals, fallback behaviors, and failure recovery procedures "
-                "to ensure availability under load or failure."
-            )
+                "Design for fault tolerance and continuous operation. Apply redundancy tactics such as failover servers or replicated services so that if one "
+                "component fails, a backup can seamlessly take over. Use active-passive redundancy (hot/warm spares) or load-balanced clusters to eliminate single "
+                "points of failure. Include health monitoring and automatic restart/recovery mechanisms. In line with risk management best practices, plan for "
+                "graceful degradation—if the AI system encounters a fault, it should continue providing partial service rather than shutting down."
+            ),
+            "tactics": [
+                "Failover Clustering",
+                "Active-Passive Redundancy",
+                "Service Replication",
+                "Health Monitoring",
+                "Graceful Degradation"
+            ]
         },
         {
             "article": "Article 15 – Accuracy, robustness and cybersecurity",
+        "link": "https://artificialintelligenceact.eu/article/15/",
+        
             "quote": (
-                "High-risk AI systems shall perform consistently for their intended purpose throughout their lifecycle. Appropriate levels of accuracy, robustness and "
-                "cybersecurity shall be ensured, taking into account the generally acknowledged state of the art."
+                "High-risk AI systems shall perform consistently for their intended purpose throughout their lifecycle. Appropriate levels of accuracy, robustness and cybersecurity shall be ensured, taking into account the generally acknowledged state of the art."
             ),
             "advice": (
-                "Build lifecycle monitoring into system infrastructure. Apply regression tests, live performance dashboards, and version control to verify continuous availability."
-            )
+                "Availability engineering should anticipate infrastructure-level failures and implement redundancy at data, compute, and network levels. "
+                "Failover strategies and service replication help preserve functionality even when partial system failures occur."
+            ),
+            "tactics": [
+                "Hot Standby",
+                "Load Redistribution",
+                "Latency Minimization",
+                "Redundant Compute Nodes",
+                "Network Partition Recovery"
+            ]
         }
     ],
 
     "Modifiability": [
         {
-            "article": "Article 61 – Post-market monitoring system",
+            "article": "Article 72 – Post-market monitoring system",
+        "link": "https://artificialintelligenceact.eu/article/72/",
+        
             "quote": (
-                "Providers of high-risk AI systems shall establish a post-market monitoring system in a manner that is proportionate to the nature of the AI system and the risks "
-                "it may pose. That system shall collect, document and analyse relevant data provided by users or collected through other sources on the performance of high-risk AI systems throughout their lifetime, and allow the provider to evaluate continuous compliance with the requirements set out in this Regulation."
+                "Providers of high-risk AI systems shall establish a post-market monitoring system in a manner that is proportionate to the nature of the AI system and the risks it may pose. That system shall collect, document and analyse relevant data provided by users or collected through other sources on the performance of high-risk AI systems throughout their lifetime, and allow the provider to evaluate continuous compliance with the requirements set out in this Regulation."
             ),
             "advice": (
-                "Ensure modularity and reconfigurability of software components. Enable dynamic updates and compatibility checks to maintain continuous regulatory compliance."
-            )
+                "Enable easy adaptation and update of the system. Use a modular architecture where components are decoupled and communicate via stable interfaces, so changes "
+                "in one module have minimal impact on others. For instance, separate data ingestion, model logic, and interface into distinct services. Employ information hiding: "
+                "encapsulate details likely to change (e.g. model algorithms, data schemas) behind well-defined interfaces. Continuous delivery practices can be adopted to frequently "
+                "deploy small improvements."
+            ),
+            "tactics": [
+                "Service-Oriented Architecture",
+                "Interface Abstraction",
+                "Modular Decomposition",
+                "Semantic Versioning",
+                "Continuous Integration/Delivery (CI/CD)"
+            ]
         },
         {
-            "article": "Article 62 – Reporting of serious incidents and of malfunctioning",
+            "article": "Article 73 – Reporting of serious incidents and of malfunctioning",
+        "link": "https://artificialintelligenceact.eu/article/73/",
+        
             "quote": (
                 "Providers shall immediately report to the market surveillance authorities any serious incident or any malfunctioning of the high-risk AI system which constitutes a breach of obligations laid down in this Regulation or which poses significant harm to health, safety, or fundamental rights."
             ),
             "advice": (
-                "Enable hotfixes, emergency patches, and rollbacks. Include traceable versioning and compliance-aware change deployment mechanisms."
-            )
+                "Architectural flexibility is essential to support rapid hotfixes or system rollbacks. Implement built-in hooks for runtime patches and diagnostic interfaces for "
+                "root-cause analysis. These enable prompt issue resolution and reduce time-to-repair when malfunctions occur."
+            ),
+            "tactics": [
+                "Dynamic Reconfiguration",
+                "Hot-Swapping Components",
+                "Rollback Mechanisms",
+                "Runtime Diagnostics",
+                "Error Isolation Zones"
+            ]
         }
     ],
 
     "Transparency": [
         {
             "article": "Article 13 – Transparency and provision of information to users",
+        "link": "https://artificialintelligenceact.eu/article/13/",
+        
             "quote": (
-                "High-risk AI systems shall be designed and developed in such a way that their operation is sufficiently transparent to enable users to interpret the system’s output "
-                "and use it appropriately. Providers shall ensure that high-risk AI systems are accompanied by instructions for use."
+                "High-risk AI systems shall be designed and developed in such a way to ensure that their operation is sufficiently transparent "
+                "to enable users to interpret the system’s output and use it appropriately. Instructions for use shall include concise and clear "
+                "information that is relevant, accessible and comprehensible to users."
             ),
             "advice": (
-                "Integrate explainability methods such as rationale explanation, saliency maps, or simplified logic paths. Document all outputs and limitations in accessible language."
-            )
+                "Embed explainability and disclosure mechanisms into the system. Integrate explainable AI (XAI) components that can provide understandable justifications for "
+                "the model’s outputs. For example, use model-agnostic explainers (LIME, SHAP) or built-in feature importance metrics to generate user-facing explanations for "
+                "predictions. Provide an “AI Factsheet” or help section that describes the system’s purpose, limitations, and performance to fulfill instruction requirements."
+            ),
+            "tactics": [
+                "Model-Agnostic Explanation APIs",
+                "Feature Attribution Visualizations",
+                "Public AI Factsheets",
+                "Contextual Help UIs",
+                "Explanation Logging"
+            ]
         },
         {
             "article": "Article 50 – Transparency obligations for certain AI systems",
+        "link": "https://artificialintelligenceact.eu/article/50/",
+        
             "quote": (
-                "Providers shall ensure that natural persons are informed that they are interacting with an AI system, unless this is obvious from the circumstances and the context of use."
+                "Providers shall ensure that AI systems intended to interact with natural persons are designed and developed in such a way that natural persons "
+                "are informed that they are interacting with an AI system, unless this is obvious from the context or circumstances. The information shall be "
+                "provided at the latest at the time of the first interaction and in a clear and distinguishable manner."
             ),
             "advice": (
-                "Disclose AI interactions through interface cues, tooltips, or onboarding flows. Design visual indicators or voice prompts where appropriate."
-            )
-        },
-        {
-            "article": "Article 52 – Obligations of providers of general-purpose AI models",
-            "quote": (
-                "The provider of a general-purpose AI model shall draw up and make publicly available a sufficiently detailed summary about the content used for training the model. "
-                "That summary shall be formulated in a manner that is comprehensive to providers of AI systems who intend to integrate the general-purpose AI model in their AI systems."
+                "Ensure the UI includes informational cues that the user is interacting with an AI—e.g. a label or icon indicating AI assistance. "
+                "Use visual, auditory, or textual cues to disclose AI presence, and log these disclosures for auditability."
             ),
-            "advice": (
-                "Compile a public documentation set detailing training sources, development methodology, model capabilities, and known biases or risks."
-            )
+            "tactics": [
+                "AI Disclosure Labels",
+                "Voice/Visual AI Cues",
+                "System Prompts for Interaction",
+                "Disclosure Logging",
+                "Branding AI Functionality"
+            ]
         }
     ],
 
     "Auditability": [
         {
             "article": "Article 12 – Record-keeping",
+        "link": "https://artificialintelligenceact.eu/article/12/",
+        
             "quote": (
-                "High-risk AI systems shall be designed and developed with capabilities enabling the automatic recording of events (‘logs’) while the system is operating. Logging "
-                "shall be ensured to the extent appropriate to the intended purpose of the system and sufficient to facilitate the post-market monitoring obligations."
+                "High-risk AI systems shall be designed and developed with capabilities enabling the automatic recording of events ('logs') while the system is operating. "
+                "The logging capability shall be appropriate to the intended purpose of the AI system and shall ensure a level of traceability of the AI system’s functioning throughout its lifecycle."
             ),
             "advice": (
-                "Log decisions, model inputs/outputs, user actions, and exceptions. Ensure immutability of logs and design retention policies that support auditing and monitoring."
-            )
+                "Build in robust logging and compliance documentation. Establish a comprehensive logging subsystem that automatically records key events: inputs received, decisions made by the AI, "
+                "user actions, overrides, and any anomalies. Logs should be tamper-evident (append-only and timestamped). Maintain up-to-date technical documentation (technical file as per Annex IV) "
+                "recording the model version, training data, and validation results."
+            ),
+            "tactics": [
+                "Event Sourcing Pattern",
+                "Tamper-Proof Log Stores",
+                "Secure Time-Stamped Logs",
+                "Automated Technical File Generator",
+                "User Action and Override Logging"
+            ]
         },
         {
             "article": "Article 16 – Obligations of providers of high-risk AI systems",
+        "link": "https://artificialintelligenceact.eu/article/16/",
+        
             "quote": (
-                "Providers shall ensure that high-risk AI systems are accompanied by the documentation and instructions of use referred to in Article 11 and Article 13(3), and that "
-                "they undergo the relevant conformity assessment procedure referred to in Article 43."
+                "Providers of high-risk AI systems shall ensure that the systems are designed and developed in such a way to allow for automatic recording of events "
+                "during their operation (logging) to ensure traceability of the functioning of the AI systems throughout their lifecycle."
             ),
             "advice": (
-                "Document system behavior, assumptions, data provenance, and test procedures. Structure documentation to support compliance audits and traceability."
-            )
+                "Centralize logging frameworks and integrate them with audit tools. Design log data storage with secure access controls. Use metadata tagging for log parsing, and "
+                "support forensic investigation of failures or complaints."
+            ),
+            "tactics": [
+                "Centralized Logging Infrastructure",
+                "Metadata-Enriched Log Entries",
+                "Access-Controlled Log Storage",
+                "Compliance-Ready Log Formats",
+                "Audit Dashboard Integration"
+            ]
         }
     ],
 
     "Safety": [
         {
             "article": "Article 9 – Risk management system",
+        "link": "https://artificialintelligenceact.eu/article/9/",
+        
             "quote": (
-                "The risk management system shall identify and evaluate the known and foreseeable risks that are associated with each high-risk AI system, and define and implement "
-                "risk mitigation measures. The risk management system shall be documented and kept up to date."
+                "The risk management system shall identify and evaluate the known and foreseeable risks that are associated with each high-risk AI system, and define and implement risk mitigation measures. The risk management system shall be documented and kept up to date."
             ),
             "advice": (
-                "Apply risk analysis frameworks (e.g., FMEA, HARA) and simulation tools. Include safeguards such as user overrides, error containment, and health monitoring."
-            )
+                "Incorporate safety-engineering patterns to prevent and contain failures. Perform hazard analysis (e.g. FMEA or FTA) on the architecture to identify points of failure. "
+                "Use error containment zones in the design. Implement fail-safe defaults and provide manual override or emergency stop mechanisms. Redundancy (e.g. N-version design) can be used "
+                "to detect algorithmic faults and fallback to safety mode."
+            ),
+            "tactics": [
+                "Error Containment Zones",
+                "Fail-Safe Defaults",
+                "Emergency Stop Interfaces",
+                "N-Version Programming",
+                "Anomaly Detection and Intervention"
+            ]
         },
         {
-            "article": "Article 62 – Reporting of serious incidents and of malfunctioning",
+            "article": "Article 15 – Accuracy, robustness and cybersecurity",
+        "link": "https://artificialintelligenceact.eu/article/15/",
+        
             "quote": (
-                "Providers shall immediately report to the market surveillance authorities any serious incident or malfunctioning of the high-risk AI system which constitutes a breach of "
-                "obligations laid down in this Regulation or which poses significant harm to health, safety, or fundamental rights."
+                "High-risk AI systems shall be resilient to errors, faults or inconsistencies in the operating environment and in data inputs. "
+                "They shall include mechanisms to ensure that system behavior does not lead to unsafe or unintended consequences."
             ),
             "advice": (
-                "Add triggers for alerts when serious faults or violations occur. Define a responsible incident response plan including containment and rollback actions."
-            )
+                "Design for resilience against adversarial inputs, degraded sensors, or data shifts. Include runtime safety monitors and human-in-the-loop interventions. "
+                "Implement isolation of risky functions from core decision-making components."
+            ),
+            "tactics": [
+                "Runtime Safety Monitoring",
+                "Adversarial Input Handling",
+                "Component Sandboxing",
+                "Human-in-the-Loop Fallbacks",
+                "Safe Mode Triggers"
+            ]
         }
     ],
 
     "Performance": [
         {
             "article": "Article 15 – Accuracy, robustness and cybersecurity",
+        "link": "https://artificialintelligenceact.eu/article/15/",
+        
             "quote": (
-                "High-risk AI systems shall be designed and developed in such a way, including with appropriate levels of accuracy, robustness and cybersecurity, that they achieve, "
-                "in the light of their intended purpose, an appropriate level of accuracy, robustness and cybersecurity and perform consistently for their intended purpose."
+                "High-risk AI systems shall be designed and developed in such a way that they achieve appropriate levels of accuracy, robustness and cybersecurity, "
+                "and perform consistently in those respects throughout their lifecycle."
             ),
             "advice": (
-                "Test model performance on edge cases and long-tail inputs. Benchmark accuracy, latency, and resource efficiency in live-like conditions."
-            )
+                "Architect for consistent performance and accuracy under load. Allocate explicit performance budgets for critical operations—e.g. max response time for predictions—"
+                "and design the system to meet them. Use scalable architecture patterns such as load balancers, caching layers, and asynchronous processing to handle high throughput. "
+                "Deploy the AI model behind a scaling API so that request volume increases can be met with additional instances. Include profiling and monitoring hooks to track "
+                "performance in production and detect degradation over time."
+            ),
+            "tactics": [
+                "Load Balancing",
+                "Caching",
+                "Asynchronous Queues",
+                "Auto-Scaling",
+                "Performance Monitoring Dashboards"
+            ]
         },
         {
             "article": "Article 17 – Quality management system",
+        "link": "https://artificialintelligenceact.eu/article/17/",
+        
             "quote": (
-                "Providers shall ensure that a quality management system is established, implemented and documented. The quality management system shall ensure compliance with this "
-                "Regulation and effective monitoring and control of the functioning of the high-risk AI system."
+                "The quality management system shall include, at least, strategies and procedures for the following aspects: examination, test and validation procedures "
+                "to be carried out before, during and after development, as well as documentation of those procedures and their results."
             ),
             "advice": (
-                "Set up structured review processes with metrics for performance, robustness, and user impact. Automate tests for drift and anomaly detection."
-            )
+                "Use continuous integration and testing to validate performance regularly. Apply synthetic workloads to simulate usage and verify that critical functions meet their response thresholds. "
+                "Log historical performance metrics to establish trends."
+            ),
+            "tactics": [
+                "Load Testing",
+                "Synthetic Workload Simulation",
+                "Performance Regression Testing",
+                "CI/CD with Metric Alerts",
+                "Profiling Tool Integration"
+            ]
         }
     ]
 }

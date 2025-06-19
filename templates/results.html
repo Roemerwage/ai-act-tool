@@ -4,7 +4,6 @@
 {% set prev_page = 'page2' %}  <!-- For page3 -->
 {% set prev_page = 'page3' %}  <!-- For results -->
 
-
 <h2>Results</h2>
 <p>This overview shows which software architecture quality attributes must be addressed in your AI system’s design, based on your classification under the EU AI Act.</p>
 
@@ -35,27 +34,42 @@
 {% endif %}
 
 {% for qa, rules in grouped.items() %}
-    <div class="mb-4">
-        <h4 class="text-primary">{{ qa }}</h4>
-        {% for rule in rules %}
-            <p><strong>Article:</strong> {{ rule.article }}</p>
-            <p><strong>Legal Requirement:</strong><br>{{ rule.quote }}</p>
-            <p><strong>Software Architecture Advice:</strong><br>{{ rule.advice }}</p>
-            <hr>
-        {% endfor %}
-    </div>
+  <div class="mb-4">
+    <h4 class="text-primary">{{ qa }}</h4>
+    {% for rule in rules %}
+      <p><strong>Article:</strong> {{ rule.article }}</p>
+      <p><strong>Legal Requirement:</strong><br>{{ rule.quote }}</p>
+{% if rule.link %}
+  <p class="text-sm mt-1">
+    <a href="{{ rule.link }}" class="text-decoration-none text-primary" target="_blank" rel="noopener noreferrer">
+      Full legal text ↗
+    </a>
+  </p>
+{% endif %}
+
+      <p><strong>Software Architecture Advice:</strong><br>{{ rule.advice }}</p>
+      {% if rule.tactics %}
+        <p><strong>Recommended Tactics:</strong></p>
+        <ul>
+          {% for tactic in rule.tactics %}
+            <li>{{ tactic }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <hr>
+    {% endfor %}
+  </div>
 {% endfor %}
 
 {% if not grouped %}
-    <div class="alert alert-info">
-        <strong>No architecture obligations required under the AI Act.</strong><br>
-        However, you should still consider ethical design, safety, and privacy best practices.
-    </div>
+  <div class="alert alert-info">
+    <strong>No architecture obligations required under the AI Act.</strong><br>
+    However, you should still consider ethical design, safety, and privacy best practices.
+  </div>
 {% endif %}
 
 <hr>
 <p><strong>Note:</strong> Even if your system is not subject to the AI Act, other European regulations such as the <em>General Data Protection Regulation (GDPR)</em>, the <em>Product Safety Regulation</em>, and <em>sector-specific laws</em> may still apply.</p>
-
 
 <div class="mt-4">
   {% if request.path != '/page1' %}
