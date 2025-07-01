@@ -54,9 +54,25 @@
           {% for tactic in rule.tactics %}
             <li>{{ tactic }}</li>
           {% endfor %}
-        </ul>
-      {% endif %}
-      <hr>
+  </ul>
+
+  {% if rule.iso_standards %}
+  <p><strong>Relevant ISO/IEC standards:</strong></p>
+  <ul class="mb-2">
+    {% for iso in rule.iso_standards %}
+      <li>
+        <a href="{{ iso.link }}" target="_blank" rel="noopener noreferrer">
+          {{ iso.title }}
+        </a>
+        — {{ iso.name }}<br>
+        <small class="text-muted">Clauses: {{ iso.clauses }}</small>
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+{% endif %}
+<hr>
     {% endfor %}
   </div>
 {% endfor %}
