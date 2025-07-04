@@ -14,19 +14,16 @@ architecture_rules = {
             "prevent and control for those risks through technical redundancy, fail-safe and fallback plans."
         ),
         "advice": (
-            "Implement a defense-in-depth architecture. Use strong authentication and authorization mechanisms to ensure "
-            "only legitimate actors access the AI system. Validate and sanitize all inputs (e.g. user data, model inputs) "
-            "to thwart data-poisoning or injection attacks. Encrypt sensitive data in transit and at rest to protect "
-            "confidentiality. Incorporate continuous monitoring and intrusion detection, and maintain an audit trail of "
-            "system access and actions. These measures collectively address the AI Act’s cybersecurity mandate (Art. 15) "
-            "by hardening the system against unauthorized manipulation and ensuring integrity under attack."
+            "Adopt a defence-in-depth stance: validate every input, authenticate every actor and monitor every interaction. "
+            "Layer controls so attempted tampering, poisoning or privilege-escalation is detected swiftly and contained "
+            "before it alters system behaviour."
         ),
         "tactics": [
-            "Input Validation and Sanitization",
-            "Role-Based Access Control (RBAC)",
-            "Transport Layer Security (TLS)",
-            "Audit Trail for Access Logs",
-            "Intrusion Detection Systems (IDS)"
+            "Input validation and sanitization",
+            "Role-based access controls(RBAC)",
+            "Transport layer security (TLS)",
+            "Audit trail for access logs",
+            "Intrusion detection systems (IDS)"
         ],
         "iso_standards": [
             {
@@ -64,17 +61,16 @@ architecture_rules = {
             "reasonably foreseeable conditions of use, and shall include appropriate measures to identify, estimate, evaluate and handle risks."
         ),
         "advice": (
-            "Design for fault tolerance and continuous operation. Apply redundancy tactics such as failover servers or replicated services so that if one "
-            "component fails, a backup can seamlessly take over. Use active-passive redundancy (hot/warm spares) or load-balanced clusters to eliminate single "
-            "points of failure. Include health monitoring and automatic restart/recovery mechanisms. In line with risk management best practices, plan for "
-            "graceful degradation—if the AI system encounters a fault, it should continue providing partial service rather than shutting down."
+            "Architect the solution so that risks surfaced at any stage can be detected early and contained locally. "
+            "Embed redundancy, health supervision and graceful-degradation paths so that foreseeable faults or data shifts never cascade into total service failure. "
+            "Keep the mitigation loop continuous by feeding runtime signals back into the design and deployment pipeline."
         ),
         "tactics": [
-            "Failover Clustering",
-            "Active-Passive Redundancy",
-            "Service Replication",
-            "Health Monitoring",
-            "Graceful Degradation"
+            "Failover clustering",
+            "Active-passive redundancy",
+            "Service replication",
+            "Health monitoring",
+            "Graceful degradation"
         ],
         "iso_standards": [
             {
@@ -105,15 +101,14 @@ architecture_rules = {
             "and cybersecurity shall be ensured, taking into account the generally acknowledged state of the art."
         ),
         "advice": (
-            "Availability engineering should anticipate infrastructure-level failures and implement redundancy at data, compute, and network levels. "
-            "Failover strategies and service replication help preserve functionality even when partial system failures occur."
+                "Treat robustness as a service-level obligation. "
+                "Distribute workload, keep hot-standby instances ready and rebalance traffic automatically, "
+                "so capacity and response times stay within target even when nodes, links or whole zones fail."
         ),
         "tactics": [
-            "Hot Standby",
-            "Load Redistribution",
-            "Latency Minimization",
-            "Redundant Compute Nodes",
-            "Network Partition Recovery"
+                "Failover clustering",
+                "Service replication",
+                "Health monitoring",
         ],
         "iso_standards": [
             {
@@ -144,9 +139,9 @@ architecture_rules = {
         "article": "Article 72 – Post-market monitoring system",
         "link": "https://artificialintelligenceact.eu/article/72/",
         "quote": (
-            "Providers of high-risk AI systems shall establish a post-market monitoring system in a manner that is proportionate to the nature of the AI system and the risks it may pose. "
-            "That system shall collect, document and analyse relevant data provided by users or collected through other sources on the performance of high-risk AI systems throughout their "
-            "lifetime, and allow the provider to evaluate continuous compliance with the requirements set out in this Regulation."
+            "Architect for low-friction evolution driven by operational insight. "
+            "Expose health and usage telemetry, version APIs semantically and automate deployment so fixes and enhancements ship promptly as monitoring uncovers issues."
+
         ),
         "advice": (
             "Enable easy adaptation and update of the system. Use a modular architecture where components are decoupled and communicate via stable interfaces, so changes "
@@ -155,11 +150,8 @@ architecture_rules = {
             "deploy small improvements."
         ),
         "tactics": [
-            "Service-Oriented Architecture",
-            "Interface Abstraction",
-            "Modular Decomposition",
-            "Semantic Versioning",
-            "Continuous Integration/Delivery (CI/CD)"
+                "Encapsulate",
+                "Restrict dependencies",
         ],
         "iso_standards": [
             {
@@ -190,15 +182,14 @@ architecture_rules = {
             "of obligations laid down in this Regulation or which poses significant harm to health, safety, or fundamental rights."
         ),
         "advice": (
-            "Architectural flexibility is essential to support rapid hotfixes or system rollbacks. Implement built-in hooks for runtime patches and diagnostic interfaces for "
-            "root-cause analysis. These enable prompt issue resolution and reduce time-to-repair when malfunctions occur."
+            "Enable rapid containment and rollback when faults emerge. "
+            "Provide dynamic re-configuration hooks, fine-grained diagnostics and isolation zones that confine defective components while a patched version is prepared and deployed."
+
         ),
         "tactics": [
-            "Dynamic Reconfiguration",
-            "Hot-Swapping Components",
-            "Rollback Mechanisms",
-            "Runtime Diagnostics",
-            "Error Isolation Zones"
+            "Component replacement",
+            "Configuration-time binding",
+            "Use an intermediary"
         ],
         "iso_standards": [
             {
@@ -233,9 +224,8 @@ architecture_rules = {
             "information that is relevant, accessible and comprehensible to users."
         ),
         "advice": (
-            "Embed explainability and disclosure mechanisms into the system. Integrate explainable AI (XAI) components that can provide understandable justifications for "
-            "the model’s outputs. For example, use model-agnostic explainers (LIME, SHAP) or built-in feature importance metrics to generate user-facing explanations for "
-            "predictions. Provide an “AI Factsheet” or help section that describes the system’s purpose, limitations, and performance to fulfill instruction requirements."
+            "Surface explanations and usage guidance at the points where users rely on the model. "
+            "Combine plain-language rationales, visual cues and contextual help so people can evaluate outcomes, limitations and next steps without consulting external documentation."
         ),
         "tactics": [
             "Model-Agnostic Explanation APIs",
@@ -274,8 +264,8 @@ architecture_rules = {
             "provided at the latest at the time of the first interaction and in a clear and distinguishable manner."
         ),
         "advice": (
-            "Ensure the UI includes informational cues that the user is interacting with an AI—e.g. a label or icon indicating AI assistance. "
-            "Use visual, auditory, or textual cues to disclose AI presence, and log these disclosures for auditability."
+            "Make the AI presence unmistakable and auditable. "
+            "Display clear visual or auditory cues, log the disclosure event and align the notification style with the product’s branding to maintain user trust without confusion."
         ),
         "tactics": [
             "AI Disclosure Labels",
@@ -317,16 +307,14 @@ architecture_rules = {
             "The logging capability shall be appropriate to the intended purpose of the AI system and shall ensure a level of traceability of the AI system’s functioning throughout its lifecycle."
         ),
         "advice": (
-            "Build in robust logging and compliance documentation. Establish a comprehensive logging subsystem that automatically records key events: inputs received, decisions made by the AI, "
-            "user actions, overrides, and any anomalies. Logs should be tamper-evident (append-only and timestamped). Maintain up-to-date technical documentation (technical file as per Annex IV) "
-            "recording the model version, training data, and validation results."
+            "Guarantee an immutable, time-sequenced account of the system’s behaviour. "
+            "Capture inputs, outputs and control actions as append-only events, preserve integrity with cryptographic checks, and store them where auditors can replay any decision path on demand."
         ),
         "tactics": [
-            "Event Sourcing Pattern",
-            "Tamper-Proof Log Stores",
-            "Secure Time-Stamped Logs",
-            "Automated Technical File Generator",
-            "User Action and Override Logging"
+                "Event sourcing pattern",
+                "Tamper-proof log stores",
+                "Secure time-stamped logs",
+                "Comprehensive event capture"
         ],
         "iso_standards": [
             {
@@ -357,15 +345,13 @@ architecture_rules = {
             "during their operation (logging) to ensure traceability of the functioning of the AI systems throughout their lifecycle."
         ),
         "advice": (
-            "Centralize logging frameworks and integrate them with audit tools. Design log data storage with secure access controls. Use metadata tagging for log parsing, and "
-            "support forensic investigation of failures or complaints."
+            "Centralise and enrich lifecycle logs so incidents can be reconstructed across versions and components. "
+            "Protect the evidence chain with role-based access and metadata tagging, enabling auditors to trace any anomaly end-to-end without compromising data protection."
         ),
         "tactics": [
-            "Centralized Logging Infrastructure",
-            "Metadata-Enriched Log Entries",
-            "Access-Controlled Log Storage",
-            "Compliance-Ready Log Formats",
-            "Audit Dashboard Integration"
+                "Event sourcing pattern",
+                "Access-controlled log storage",
+                "Comprehensive event capture"
         ],
         "iso_standards": [
             {
@@ -400,16 +386,14 @@ architecture_rules = {
             "and define and implement risk mitigation measures. The risk management system shall be documented and kept up to date."
         ),
         "advice": (
-            "Incorporate safety-engineering patterns to prevent and contain failures. Perform hazard analysis (e.g. FMEA or FTA) on the architecture to identify points of failure. "
-            "Use error containment zones in the design. Implement fail-safe defaults and provide manual override or emergency stop mechanisms. Redundancy (e.g. N-version design) can be used "
-            "to detect algorithmic faults and fallback to safety mode."
+            "Harden the design with safety-engineering defaults. "
+            "Partition components into error-containment zones, provide manual override paths and fail-safe modes so that any hazardous condition is isolated and neutralised before it causes harm."
         ),
         "tactics": [
-            "Error Containment Zones",
-            "Fail-Safe Defaults",
-            "Emergency Stop Interfaces",
-            "N-Version Programming",
-            "Anomaly Detection and Intervention"
+            "Error containment zones",
+            "Fail-safe defaults",
+            "Emergency stop interfaces",
+            "N-version programming"
         ],
         "iso_standards": [
             {
@@ -440,15 +424,11 @@ architecture_rules = {
             "They shall include mechanisms to ensure that system behavior does not lead to unsafe or unintended consequences."
         ),
         "advice": (
-            "Design for resilience against adversarial inputs, degraded sensors, or data shifts. Include runtime safety monitors and human-in-the-loop interventions. "
-            "Implement isolation of risky functions from core decision-making components."
+            "Continuously supervise runtime behaviour for unsafe states and shift to a controlled safe-mode when thresholds are crossed. "
+            "Sandbox risky components and include human fallback loops for irreversible actions so that errors or adversarial inputs cannot propagate harm."
         ),
         "tactics": [
-            "Runtime Safety Monitoring",
-            "Adversarial Input Handling",
-            "Component Sandboxing",
-            "Human-in-the-Loop Fallbacks",
-            "Safe Mode Triggers"
+            "Runtime safety monitoring",
         ],
         "iso_standards": [
             {
@@ -482,17 +462,15 @@ architecture_rules = {
             "and perform consistently in those respects throughout their lifecycle."
         ),
         "advice": (
-            "Architect for consistent performance and accuracy under load. Allocate explicit performance budgets for critical operations—e.g. max response time for predictions—"
-            "and design the system to meet them. Use scalable architecture patterns such as load balancers, caching layers, and asynchronous processing to handle high throughput. "
-            "Deploy the AI model behind a scaling API so that request volume increases can be met with additional instances. Include profiling and monitoring hooks to track "
-            "performance in production and detect degradation over time."
+            "Design for elastic throughput and predictable latency. "
+            "Define performance budgets, instrument end-to-end metrics and scale horizontally or shed non-critical load before response-time targets are breached."
         ),
         "tactics": [
-            "Load Balancing",
-            "Caching",
-            "Asynchronous Queues",
-            "Auto-Scaling",
-            "Performance Monitoring Dashboards"
+            "Introduce concurrency",
+            "Maintain multiple copies of computations",
+            "Maintain multiple copies of data",
+            "Schedule resources",
+            "Bound queue sizes"
         ],
         "iso_standards": [
             {
@@ -523,15 +501,15 @@ architecture_rules = {
             "to be carried out before, during and after development, as well as documentation of those procedures and their results."
         ),
         "advice": (
-            "Use continuous integration and testing to validate performance regularly. Apply synthetic workloads to simulate usage and verify that critical functions meet their response thresholds. "
-            "Log historical performance metrics to establish trends."
+            "Embed performance-and-accuracy gates into CI/CD. "
+            "Re-run regression suites and synthetic workloads on every build, block releases on KPI drift, and archive the evidence so validation remains demonstrable throughout the lifecycle."
         ),
         "tactics": [
-            "Load Testing",
-            "Synthetic Workload Simulation",
-            "Performance Regression Testing",
-            "CI/CD with Metric Alerts",
-            "Profiling Tool Integration"
+            "Introduce concurrency",
+            "Maintain multiple copies of computations",
+            "Maintain multiple copies of data",
+            "Schedule resources",
+            "Bound queue sizes"
         ],
         "iso_standards": [
             {
