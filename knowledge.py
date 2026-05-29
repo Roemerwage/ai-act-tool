@@ -20,7 +20,7 @@ architecture_rules = {
         ),
         "tactics": [
             "Input validation and sanitization",
-            "Role-based access controls(RBAC)",
+            "Role-based access controls (RBAC)",
             "Transport layer security (TLS)",
             "Audit trail for access logs",
             "Intrusion detection systems (IDS)"
@@ -50,6 +50,55 @@ architecture_rules = {
 
 
 
+"Data Quality": [
+    {
+        "article": "Article 10 – Data and data governance",
+        "link": "https://artificialintelligenceact.eu/article/10/",
+        "quote": (
+            "Training, validation and testing data sets shall be relevant, representative, free of errors and complete. "
+            "They shall have the appropriate statistical properties, including, where applicable, as regards the persons or groups of persons "
+            "in relation to whom the high-risk AI system is intended to be used. Those data sets shall take into account, to the extent required "
+            "by the intended purpose, the characteristics or elements that are particular to the specific geographical, contextual, behavioural or "
+            "functional setting within which the high-risk AI system is intended to be used. They shall be examined in view of possible biases "
+            "that are likely to affect the health and safety of persons, have a negative impact on fundamental rights or lead to discrimination."
+        ),
+        "advice": (
+            "Treat data quality as a first-class architectural concern. "
+            "Embed validation, bias detection and provenance tracking directly into the data pipeline so that every dataset entering the system "
+            "is checked against defined quality criteria before training, validation or deployment. "
+            "Version datasets alongside model artefacts so any quality regression can be traced and reproduced."
+        ),
+        "tactics": [
+            "Data validation pipeline",
+            "Automated bias and fairness checks",
+            "Dataset versioning and lineage tracking",
+            "Statistical distribution monitoring",
+            "Data quality gates in CI/CD"
+        ],
+        "iso_standards": [
+            {
+                "title": "ISO/IEC 5259-1:2024",
+                "name": "Data quality for analytics and machine learning – Part 1",
+                "link": "https://www.iso.org/standard/81088.html",
+                "clauses": "5.1–5.3 (data-quality framework, lifecycle & characteristics); 6 (data quality evaluation)"
+            },
+            {
+                "title": "ISO/IEC TR 24027:2021",
+                "name": "Bias in AI systems and AI-aided decision making",
+                "link": "https://www.iso.org/standard/77607.html",
+                "clauses": "5 (bias taxonomy); 6 (bias detection & mitigation); 7 (fairness metrics)"
+            },
+            {
+                "title": "ISO/IEC 42001:2023",
+                "name": "Artificial intelligence management system",
+                "link": "https://www.iso.org/standard/42001.html",
+                "clauses": "Annex B.7 (data for AI systems); 8.2 (AI risk assessment including data risks)"
+            }
+        ]
+    }
+],
+
+
 "Availability": [
     {
         "article": "Article 9 – Risk management system",
@@ -61,7 +110,7 @@ architecture_rules = {
             "reasonably foreseeable conditions of use, and shall include appropriate measures to identify, estimate, evaluate and handle risks."
         ),
         "advice": (
-            "Architect the solution so that risks surfaced at any stage can be detected early and contained locally. "
+            "Architect the system so that risks surfaced at any stage can be detected early and contained locally. "
             "Embed redundancy, health supervision and graceful-degradation paths so that foreseeable faults or data shifts never cascade into total service failure. "
             "Keep the mitigation loop continuous by feeding runtime signals back into the design and deployment pipeline."
         ),
@@ -139,15 +188,15 @@ architecture_rules = {
         "article": "Article 72 – Post-market monitoring system",
         "link": "https://artificialintelligenceact.eu/article/72/",
         "quote": (
-            "Architect for low-friction evolution driven by operational insight. "
-            "Expose health and usage telemetry, version APIs semantically and automate deployment so fixes and enhancements ship promptly as monitoring uncovers issues."
-
+            "Providers of high-risk AI systems shall establish a post-market monitoring system to actively and systematically collect, document, and analyse relevant data "
+            "on the performance of high-risk AI systems throughout their lifetime with a view to identifying any need to apply corrective measures."
         ),
         "advice": (
-            "Enable easy adaptation and update of the system. Use a modular architecture where components are decoupled and communicate via stable interfaces, so changes "
-            "in one module have minimal impact on others. For instance, separate data ingestion, model logic, and interface into distinct services. Employ information hiding: "
-            "encapsulate details likely to change (e.g. model algorithms, data schemas) behind well-defined interfaces. Continuous delivery practices can be adopted to frequently "
-            "deploy small improvements."
+            "Architect for low-friction evolution driven by operational insight. "
+            "Expose health and usage telemetry, version APIs semantically and automate deployment so fixes and enhancements ship promptly as monitoring uncovers issues. "
+            "Enable easy adaptation and update of the system by using a modular architecture where components are decoupled and communicate via stable interfaces, so changes "
+            "in one module have minimal impact on others. Employ information hiding: "
+            "encapsulate details likely to change (e.g. model algorithms, data schemas) behind well-defined interfaces."
         ),
         "tactics": [
                 "Encapsulate",
@@ -373,6 +422,50 @@ architecture_rules = {
                 "clauses": "8.5 (verification & validation); 8.7 (operation)"
             }
         ]
+    },
+    {
+        "article": "Article 11 – Technical documentation",
+        "link": "https://artificialintelligenceact.eu/article/11/",
+        "quote": (
+            "Providers of high-risk AI systems shall draw up technical documentation before the high-risk AI system is placed on the market "
+            "or put into service. The technical documentation shall be drawn up in such a way as to demonstrate that the high-risk AI system "
+            "complies with the requirements set out in this Chapter and provide national competent authorities and notified bodies with all "
+            "the necessary information to assess the compliance of the AI system with those requirements. "
+            "The technical documentation shall be kept up to date."
+        ),
+        "advice": (
+            "Design the system to generate its own compliance evidence. "
+            "Use self-documenting APIs, structured architecture decision records (ADRs) and automated report generation so that the "
+            "technical file required by Annex IV can be produced and kept current without manual effort. "
+            "Treat documentation as a living artefact that is versioned alongside the model and code."
+        ),
+        "tactics": [
+            "Self-documenting APIs and components",
+            "Architecture decision records (ADRs)",
+            "Automated technical file generation",
+            "Model cards and system cards",
+            "Versioned documentation alongside code"
+        ],
+        "iso_standards": [
+            {
+                "title": "ISO/IEC 42001:2023",
+                "name": "Artificial intelligence management system",
+                "link": "https://www.iso.org/standard/42001.html",
+                "clauses": "7.5 (documented information); 8.4 (AI system impact assessment documentation)"
+            },
+            {
+                "title": "ISO/IEC 22989:2022",
+                "name": "Artificial intelligence concepts and terminology",
+                "link": "https://www.iso.org/standard/74296.html",
+                "clauses": "3 (controlled vocabulary for documentation); 6 (AI lifecycle documentation)"
+            },
+            {
+                "title": "ISO/IEC 23053:2022",
+                "name": "Framework for AI Systems Using Machine Learning",
+                "link": "https://www.iso.org/standard/74438.html",
+                "clauses": "8.5 (verification & validation evidence); 8.8 (documentation of ML process)"
+            }
+        ]
     }
 ],
 
@@ -453,6 +546,54 @@ architecture_rules = {
     }
 ],
 
+"Controllability": [
+    {
+        "article": "Article 14 – Human oversight",
+        "link": "https://artificialintelligenceact.eu/article/14/",
+        "quote": (
+            "High-risk AI systems shall be designed and developed in such a way, including with appropriate human-machine interface tools, "
+            "that they can be effectively overseen by natural persons during the period in which the AI system is in use. "
+            "The oversight measures shall be commensurate to the risks, level of autonomy and context of use of the high-risk AI system, "
+            "and shall ensure that natural persons are able to: understand the relevant capacities and limitations of the system; "
+            "monitor its operation; detect and address anomalies, dysfunctions and unexpected performance; "
+            "interpret its outputs; decide not to use the system or to override, disregard or reverse its output."
+        ),
+        "advice": (
+            "Design human oversight as a first-class architectural concern, not an afterthought. "
+            "Build explicit intervention points into decision workflows so that operators can review, override or halt the system "
+            "at any stage. Expose confidence scores, uncertainty estimates and explanations at the interface so that humans "
+            "have the information they need to exercise meaningful control — not just the theoretical ability to press a stop button."
+        ),
+        "tactics": [
+            "Human approval gates for high-stakes decisions",
+            "Confidence thresholds with automatic escalation",
+            "Override and manual stop interfaces",
+            "Explainable output interfaces",
+            "Human-in-the-loop checkpoints"
+        ],
+        "iso_standards": [
+            {
+                "title": "ISO/IEC 42001:2023",
+                "name": "Artificial intelligence management system",
+                "link": "https://www.iso.org/standard/42001.html",
+                "clauses": "Annex B.5 (human oversight and accountability); 6.1 (actions to address risks)"
+            },
+            {
+                "title": "ISO/IEC TR 24028:2020",
+                "name": "Trustworthiness in AI",
+                "link": "https://www.iso.org/standard/77608.html",
+                "clauses": "9.4 (controllability); 9.6 (human control mechanisms); 9.5 (privacy)"
+            },
+            {
+                "title": "ISO/IEC 23894:2023",
+                "name": "Risk management for AI",
+                "link": "https://www.iso.org/standard/77304.html",
+                "clauses": "6.5 (risk treatment — human controls); 6.6 (monitoring & review of oversight measures)"
+            }
+        ]
+    }
+],
+
 "Performance": [
     {
         "article": "Article 15 – Accuracy, robustness and cybersecurity",
@@ -505,11 +646,11 @@ architecture_rules = {
             "Re-run regression suites and synthetic workloads on every build, block releases on KPI drift, and archive the evidence so validation remains demonstrable throughout the lifecycle."
         ),
         "tactics": [
-            "Introduce concurrency",
-            "Maintain multiple copies of computations",
-            "Maintain multiple copies of data",
-            "Schedule resources",
-            "Bound queue sizes"
+            "Automated regression testing",
+            "Performance benchmarking in CI/CD",
+            "Model accuracy monitoring",
+            "KPI-gated release pipelines",
+            "Validation evidence archiving"
         ],
         "iso_standards": [
             {

@@ -53,19 +53,42 @@ def results():
     }
     selected_domain = answers.get('category') or answers.get('domain')
     is_high_risk = selected_domain in high_risk_domains and not is_exempt
+    is_gpai = selected_domain == 'general'
 
     features = answers.get('feature', [])
     if not isinstance(features, list):
         features = [features]
     triggers_transparency = any(f in [
-        'chatbot', 'emotion', 'synthetic_image', 'synthetic_audio', 'synthetic_video', 'foundation_model'
+        'chatbot', 'emotion', 'synthetic_image', 'synthetic_audio', 'synthetic_video'
     ] for f in features)
+    # foundation_model on page 3 upgrades to GPAI obligations if no high-risk domain selected
+    has_foundation_model = 'foundation_model' in features
+    if has_foundation_model and not is_high_risk:
+        is_gpai = True
+
+    # GPAI providers (Arts. 51–55) have obligations beyond disclosure:
+    # technical documentation → Auditability, cybersecurity → Security, incident response → Modifiability
+    gpai_qas = {'Security', 'Auditability', 'Transparency', 'Modifiability'}
 
     for qa, entries in architecture_rules.items():
-        if is_high_risk or (qa == "Transparency" and (selected_domain == 'general' or triggers_transparency)):
+        if is_high_risk:
+            grouped[qa] = entries
+        elif is_gpai and qa in gpai_qas:
+            grouped[qa] = entries
+        elif triggers_transparency and qa == 'Transparency':
             grouped[qa] = entries
 
-    return render_template('results.html', grouped=grouped)
+    # Derive classification label for the results template
+    if is_high_risk:
+        classification = 'high_risk'
+    elif is_gpai:
+        classification = 'gpai'
+    elif triggers_transparency:
+        classification = 'transparency_only'
+    else:
+        classification = 'none'
+
+    return render_template('results.html', grouped=grouped, classification=classification)
 
 if __name__ == '__main__':
     app.run(debug=True)

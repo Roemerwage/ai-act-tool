@@ -1,110 +1,153 @@
 {% extends "base.html" %}
 {% block content %}
-{% set prev_page = 'page1' %}  <!-- For page2 -->
-{% set prev_page = 'page2' %}  <!-- For page3 -->
-{% set prev_page = 'page3' %}  <!-- For results -->
 
+<div class="page-card">
+  <h2>System Classification</h2>
+  <p class="page-subtitle">
+    Select the primary domain of your AI system. This determines whether it falls under the high-risk category defined in
+    <a href="https://artificialintelligenceact.eu/article/6/" target="_blank" rel="noopener">Article 6</a> and
+    <a href="https://artificialintelligenceact.eu/annex/3/" target="_blank" rel="noopener">Annex III</a>.
+  </p>
 
-<h2>What type of AI system are you designing?</h2>
+  <form method="post">
 
-<p>Please select the category that best describes your AI system. This will determine which obligations apply under the EU AI Act.</p>
+    <div class="section-label">High-risk domains — Annex III</div>
 
-<form method="post">
-
-  <h5 class="mt-4">Select the main domain of application:</h5>
-
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="biometric" id="biometric">
-    <label class="form-check-label" for="biometric">
-      Biometric identification or categorisation
+    <label class="option-card">
+      <input type="radio" name="domain" value="biometric">
+      <div>
+        <div class="option-text">Biometric identification or categorisation</div>
+        <div class="option-ref">Annex III · Point 1</div>
+      </div>
     </label>
-  </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="infrastructure" id="infrastructure">
-    <label class="form-check-label" for="infrastructure">
-      Critical infracture
+    <label class="option-card">
+      <input type="radio" name="domain" value="infrastructure">
+      <div>
+        <div class="option-text">Critical infrastructure management and operation</div>
+        <div class="option-ref">Annex III · Point 2</div>
+      </div>
     </label>
-  </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="education" id="education">
-    <label class="form-check-label" for="education">
-      Education and vocational training
+    <label class="option-card">
+      <input type="radio" name="domain" value="education">
+      <div>
+        <div class="option-text">Education and vocational training</div>
+        <div class="option-ref">Annex III · Point 3</div>
+      </div>
     </label>
-  </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="employment" id="employment">
-    <label class="form-check-label" for="employment">
-      Employment and worker management
+    <label class="option-card">
+      <input type="radio" name="domain" value="employment">
+      <div>
+        <div class="option-text">Employment, worker management, and access to self-employment</div>
+        <div class="option-ref">Annex III · Point 4</div>
+      </div>
     </label>
-  </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="essential_services" id="services">
-    <label class="form-check-label" for="services">
-      Access to essential private or public services
+    <label class="option-card">
+      <input type="radio" name="domain" value="access">
+      <div>
+        <div class="option-text">Access to essential private or public services and benefits</div>
+        <div class="option-ref">Annex III · Point 5</div>
+      </div>
     </label>
-  </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="law_enforcement" id="law">
-    <label class="form-check-label" for="law">
-      Law enforcement
+    <label class="option-card">
+      <input type="radio" name="domain" value="credit">
+      <div>
+        <div class="option-text">Credit scoring or assessment of creditworthiness</div>
+        <div class="option-ref">Annex III · Point 5(b)</div>
+      </div>
     </label>
-  </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="domain" value="migration" id="migration">
-    <label class="form-check-label" for="migration">
-      Migration and border control
+    <label class="option-card">
+      <input type="radio" name="domain" value="law">
+      <div>
+        <div class="option-text">Law enforcement</div>
+        <div class="option-ref">Annex III · Point 6</div>
+      </div>
     </label>
-  </div>
 
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="domain" value="justice" id="justice">
-        <label class="form-check-label" for="justice">
-            Administration of justice
-        </label>
+    <label class="option-card">
+      <input type="radio" name="domain" value="migration">
+      <div>
+        <div class="option-text">Migration, asylum, and border control management</div>
+        <div class="option-ref">Annex III · Point 7</div>
+      </div>
+    </label>
+
+    <label class="option-card">
+      <input type="radio" name="domain" value="justice">
+      <div>
+        <div class="option-text">Administration of justice and democratic processes</div>
+        <div class="option-ref">Annex III · Point 8</div>
+      </div>
+    </label>
+
+    <label class="option-card">
+      <input type="radio" name="domain" value="medical">
+      <div>
+        <div class="option-text">Medical devices or safety components in medical products</div>
+        <div class="option-ref">Annex III · Point 2 / Sectoral legislation</div>
+      </div>
+    </label>
+
+    <label class="option-card">
+      <input type="radio" name="domain" value="safety">
+      <div>
+        <div class="option-text">Safety components of products covered by EU harmonisation legislation</div>
+        <div class="option-ref">Art. 6(1) · Product safety directive scope</div>
+      </div>
+    </label>
+
+    <label class="option-card">
+      <input type="radio" name="domain" value="toys">
+      <div>
+        <div class="option-text">Toys, machinery, or other safety-regulated products</div>
+        <div class="option-ref">Art. 6(1) · Annex I product categories</div>
+      </div>
+    </label>
+
+    <div class="section-label" style="margin-top:20px;">Other</div>
+
+    <label class="option-card">
+      <input type="radio" name="domain" value="general">
+      <div>
+        <div class="option-text">General-purpose AI / foundation model (e.g., large language model)</div>
+        <div class="option-ref">Title III Chapter 1 · Arts. 51–55 (GPAI obligations)</div>
+      </div>
+    </label>
+
+    <label class="option-card">
+      <input type="radio" name="domain" value="other">
+      <div>
+        <div class="option-text">None of the above — my system does not match these categories</div>
+        <div class="option-ref">Minimal risk · No mandatory architecture obligations</div>
+      </div>
+    </label>
+
+    <p class="mt-3" style="font-size:0.82rem; color:var(--muted);">
+      Not sure? See full definitions in
+      <a href="https://artificialintelligenceact.eu/annex/3/" target="_blank" rel="noopener">Annex III ↗</a>
+    </p>
+
+    <div class="section-label" style="margin-top:24px;">Research &amp; development exemption</div>
+    <label class="option-card">
+      <input type="checkbox" name="article112_exemption" value="yes">
+      <div>
+        <div class="option-text">This system has already undergone a full EU conformity assessment</div>
+        <div class="option-ref">Article 112 exemption — may reduce applicable obligations</div>
+      </div>
+    </label>
+
+    <div class="d-flex align-items-center gap-3 mt-4 pt-3 border-top">
+      <button type="submit" class="btn btn-primary">Continue →</button>
+      <a href="{{ url_for('page1') }}" class="btn btn-secondary">← Back</a>
+      <a href="{{ url_for('landing') }}" class="btn btn-outline-danger ms-auto">Start Over</a>
     </div>
 
-<p class="mt-2">
-  <em>Not sure?</em> <a href="https://artificialintelligenceact.eu/annex/3/" target="_blank">See definitions for each of these options in Annex III</a>.
-</p>
-
-
-    <div class="form-check mt-3">
-        <input class="form-check-input" type="radio" name="domain" value="general" id="general">
-        <label class="form-check-label" for="general">
-            General-purpose AI system (e.g., foundation model)
-        </label>
-    </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="domain" value="other" id="other">
-        <label class="form-check-label" for="other">
-            My system does not match any of these categories
-        </label>
-    </div>
-
-
-  <h5 class="mt-4">Optional: Exemption</h5>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" name="article112_exemption" value="yes" id="exemption">
-    <label class="form-check-label" for="exemption">
-      This AI system is part of a product that has already undergone a full EU conformity assessment (Article 112)
-    </label>
-  </div>
-
-  <button type="submit" class="btn btn-primary mt-4">Continue</button>
-</form>
-
-<div class="mt-4">
-  {% if request.path != '/page1' %}
-    <a href="{{ url_for(prev_page) }}" class="btn btn-secondary">← Back</a>
-  {% endif %}
-  <a href="{{ url_for('landing') }}" class="btn btn-outline-danger">Start Over</a>
+  </form>
 </div>
 
 {% endblock %}

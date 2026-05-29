@@ -1,41 +1,103 @@
 {% extends "base.html" %}
 {% block content %}
 
+<style>
+  .hero { text-align: center; padding: 52px 24px 40px; }
+  .hero-eyebrow {
+    display: inline-block; background: var(--orange-light); color: var(--orange);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 4px 14px; border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: 2.1rem; font-weight: 700; color: var(--navy);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 1rem; color: var(--muted); max-width: 560px;
+    margin: 0 auto 32px; line-height: 1.7;
+  }
+  .btn-start {
+    background: var(--orange); color: #fff; border: none;
+    font-weight: 700; padding: 13px 40px; border-radius: 10px;
+    font-size: 0.95rem; text-decoration: none; display: inline-block;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 0 4px 14px rgba(255,98,0,0.3);
+  }
+  .btn-start:hover { background: var(--orange-hover); color: #fff; transform: translateY(-1px); }
 
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0; }
+  @media (max-width: 768px) { .feature-grid { grid-template-columns: 1fr; } }
+  .feature-card {
+    background: var(--card-bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 24px;
+  }
+  .feature-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px; font-size: 16px;
+  }
+  .feature-card h5 { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .feature-card p  { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin: 0; }
 
-<p>
-This tool is designed to support software architects and developers in the early stages of designing AI systems. It helps identify which obligations of the EU AI Act apply to your system and translates them into relevant software architecture quality attributes.
-</p>
+  .legal-note {
+    background: var(--card-bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 8px;
+  }
+  .legal-note h6 { font-size: 0.8rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .legal-note ul { margin: 0; padding-left: 18px; }
+  .legal-note li { font-size: 0.825rem; color: var(--muted); margin-bottom: 4px; }
 
-<p>
-The tool is not intended to verify legal compliance, but rather to help anticipate and integrate regulatory requirements into the architecture from the outset — a compliance-by-design approach. It supports informed architectural decision-making before development begins.
-</p>
+  .disclaimer-bar {
+    background: #fff8f0; border: 1px solid #fde8d0;
+    border-radius: var(--radius); padding: 10px 16px;
+    font-size: 0.78rem; color: #92400e; margin-top: 16px;
+  }
+</style>
 
-<h4>How the tool works</h4>
-<ul>
-  <li>You answer a short set of questions about your AI system’s characteristics and domain of use.</li>
-  <li>The tool determines whether your system may fall under prohibited, high-risk, general-purpose, or transparency-relevant categories defined in the EU AI Act.</li>
-  <li>Based on that classification, the tool shows which software architecture quality attributes (e.g., transparency, security, auditability) must be addressed, with references to legal provisions and design-oriented advice.</li>
-</ul>
+<div class="hero">
+  <div class="hero-eyebrow">EU AI Act · Regulation 2024/1689</div>
+  <h1>Know before you build.</h1>
+  <p>Identify which obligations of the EU AI Act apply to your AI system and translate them into concrete software architecture guidance — before you write a line of code.</p>
+  <a href="{{ url_for('page1') }}" class="btn-start">Start the Assessment →</a>
+</div>
 
-<h4>Legal foundation</h4>
-<p>
-This tool is based on the provisions of the officially adopted <strong>Regulation (EU) 2024/1689</strong> of the European Parliament and of the Council — the EU Artificial Intelligence Act — as published in the <em>Official Journal of the European Union, L series</em>.
-</p>
-<p>
-The tool covers obligations from Titles II–IV, including:
-</p>
-<ul>
-  <li>Prohibited AI practices (Article 5)</li>
-  <li>High-risk AI system classification and obligations (Articles 6–17, Annex III)</li>
-  <li>Transparency obligations for interactive and generative systems (Articles 50–52)</li>
-  <li>Post-market monitoring and incident reporting (Articles 61–62)</li>
-</ul>
+<div class="feature-grid">
+  <div class="feature-card">
+    <div class="feature-icon" style="background:#EEF2F8;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A2E4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    </div>
+    <h5>Quick Risk Classification</h5>
+    <p>Three short steps determine whether your system falls under prohibited, high-risk, or transparency obligations.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon" style="background:#FFF0E8;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6200" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </div>
+    <h5>Architecture Tactics</h5>
+    <p>Each legal obligation is mapped to quality attributes and actionable design tactics from established SA literature.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon" style="background:#F0FDF4;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <h5>ISO/IEC Standards</h5>
+    <p>Recommendations are backed by relevant ISO/IEC standards with specific clause references for each obligation.</p>
+  </div>
+</div>
 
+<div class="legal-note">
+  <h6>Legal foundation</h6>
+  <ul>
+    <li>Prohibited AI practices (Article 5)</li>
+    <li>High-risk AI system classification and obligations (Articles 6–17, Annex III)</li>
+    <li>Transparency obligations for interactive and generative systems (Articles 50–52)</li>
+    <li>Post-market monitoring and incident reporting (Articles 72–73)</li>
+  </ul>
+</div>
 
-
-<div class="mt-4">
-  <a href="{{ url_for('page1') }}" class="btn btn-primary">Start the Assessment</a>
+<div class="disclaimer-bar">
+  ⚠ This tool is not intended to verify legal compliance. It supports informed architectural decision-making and a compliance-by-design approach. Always consult qualified legal counsel for binding compliance determinations.
 </div>
 
 {% endblock %}

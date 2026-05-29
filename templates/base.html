@@ -1,30 +1,324 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AI Act Compliance Support Tool</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link 
-        rel="stylesheet" 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    >
-    <style>
-        body {
-            font-family: system-ui, sans-serif;
-        }
-        h1 {
-            font-size: 1.75rem;
-        }
-        .text-primary[title] {
-            text-decoration: underline dotted;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Act Compliance Assistant</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #1A2E4A;
+      --navy-hover:  #253d61;
+      --orange:      #FF6200;
+      --orange-hover:#E55500;
+      --orange-light:#FFF0E8;
+      --bg:          #F0F4F8;
+      --card-bg:     #FFFFFF;
+      --text:        #1A2E4A;
+      --muted:       #6B7A8D;
+      --border:      #DDE3ED;
+      --radius:      10px;
+      --radius-lg:   16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main { flex: 1; }
+
+    /* ── Header ─────────────────────────────────── */
+    .site-header {
+      background: var(--navy);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header .brand {
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-icon {
+      width: 28px; height: 28px;
+      background: var(--orange);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff;
+    }
+    .brand-text em { color: var(--orange); font-style: normal; }
+
+    /* ── Progress Stepper ────────────────────────── */
+    .stepper-wrap {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .stepper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 0 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100px;
+    }
+    .step-circle {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      border: 2px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      position: relative; z-index: 1;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .step.completed .step-circle {
+      background: var(--orange); border-color: var(--orange); color: #fff;
+    }
+    .step.active .step-circle {
+      background: var(--navy); border-color: var(--navy); color: #fff;
+    }
+    .step-label {
+      font-size: 10px; font-weight: 500;
+      color: var(--muted); margin-top: 5px;
+      text-align: center; line-height: 1.3;
+    }
+    .step.active .step-label { color: var(--navy); font-weight: 600; }
+    .step.completed .step-label { color: var(--orange); }
+    .step-connector {
+      flex: 1; height: 2px; background: var(--border);
+      margin-top: 14px; margin-left: -4px; margin-right: -4px;
+      transition: background 0.2s;
+    }
+    .step-connector.done { background: var(--orange); }
+
+    /* ── Page card wrapper ───────────────────────── */
+    .page-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      box-shadow: 0 2px 8px rgba(26,46,74,0.07);
+    }
+
+    /* ── Typography ─────────────────────────────── */
+    h2 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); }
+    .page-subtitle { color: var(--muted); font-size: 0.875rem; margin-bottom: 28px; }
+
+    /* ── Section label ─────────────────────────── */
+    .section-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted); margin: 24px 0 10px;
+    }
+
+    /* ── Option cards ───────────────────────────── */
+    .option-card {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 13px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 8px; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      background: #fff; user-select: none;
+    }
+    .option-card:hover { border-color: var(--navy); box-shadow: 0 2px 6px rgba(26,46,74,0.1); }
+    .option-card input { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); cursor: pointer; }
+    .option-text { font-size: 0.875rem; color: var(--text); line-height: 1.5; }
+    .option-ref  { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+    .option-card:has(input:checked) { border-color: var(--navy); background: #f0f4f8; }
+    .option-card.danger:has(input:checked) { border-color: #f87171; background: #fff5f5; }
+    .option-card.danger:has(input:checked) .option-text { color: #b91c1c; }
+
+    /* ── Buttons ────────────────────────────────── */
+    .btn-primary { background: var(--navy); border-color: var(--navy); font-weight: 600; border-radius: 8px; padding: 9px 26px; }
+    .btn-primary:hover, .btn-primary:focus { background: var(--navy-hover); border-color: var(--navy-hover); }
+    .btn-secondary { font-weight: 500; border-radius: 8px; padding: 9px 22px; }
+    .btn-outline-danger { font-weight: 500; border-radius: 8px; padding: 9px 22px; font-size: 0.875rem; }
+
+    /* ── Alerts ─────────────────────────────────── */
+    .alert { border-radius: var(--radius); border: none; font-size: 0.875rem; padding: 14px 18px; }
+
+    /* ── Results: QA cards ─────────────────────── */
+    .qa-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .qa-header {
+      background: var(--navy);
+      padding: 13px 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .qa-icon {
+      width: 30px; height: 30px; border-radius: 7px;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 0;
+      flex-shrink: 0;
+    }
+    .qa-header h4 { color: #fff; margin: 0; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.01em; }
+    .qa-body { padding: 0; }
+
+    .rule-block { padding: 22px 24px; border-bottom: 1px solid var(--border); }
+    .rule-block:last-child { border-bottom: none; }
+
+    .article-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--orange-light); color: var(--orange);
+      font-size: 0.73rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; padding: 3px 10px;
+      border-radius: 20px; margin-bottom: 10px;
+    }
+    .article-title {
+      font-size: 0.92rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 10px;
+    }
+    .article-title a {
+      color: var(--navy); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .article-title a:hover { color: var(--orange); border-color: var(--orange); }
+
+    blockquote.legal-quote {
+      border-left: 3px solid var(--orange);
+      background: var(--orange-light);
+      padding: 12px 16px; border-radius: 0 8px 8px 0;
+      font-size: 0.83rem; color: var(--muted);
+      font-style: italic; line-height: 1.65;
+      margin: 0 0 16px;
+    }
+
+    .sub-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .advice-text { font-size: 0.875rem; color: var(--text); line-height: 1.65; margin-bottom: 16px; }
+
+    .tactics-wrap { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .tactic-pill {
+      background: #EEF2F8; color: var(--navy);
+      font-size: 0.75rem; font-weight: 500;
+      padding: 4px 12px; border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .iso-list { list-style: none; padding: 0; margin: 0; }
+    .iso-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 9px 12px; border: 1px solid var(--border);
+      border-radius: 8px; margin-bottom: 6px; background: #fafbfc;
+    }
+    .iso-badge {
+      background: var(--navy); color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 3px 7px; border-radius: 5px;
+      white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+    }
+    .iso-item a { color: var(--navy); font-weight: 600; font-size: 0.83rem; text-decoration: none; }
+    .iso-item a:hover { color: var(--orange); text-decoration: underline; }
+    .iso-clauses { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Footer ─────────────────────────────────── */
+    .site-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      font-size: 0.77rem;
+      padding: 16px;
+      margin-top: 40px;
+    }
+    .site-footer a { color: rgba(255,255,255,0.7); }
+  </style>
 </head>
 <body>
-    <div class="container mt-4 mb-5">
-        <h1 class="mb-4">AI Act Compliance Support Tool</h1>
-        {% block content %}{% endblock %}
+
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ url_for('landing') }}" class="brand">
+        <div class="brand-icon">A</div>
+        <div class="brand-text">AI Act <em>Compliance</em> Assistant</div>
+      </a>
     </div>
+  </header>
+
+  {# Stepper — shown on classification pages and results #}
+  {% set path = request.path %}
+  {% if '/page' in path or '/results' in path %}
+  {% set step = 1 if '/page1' in path else 2 if '/page2' in path else 3 if '/page3' in path else 4 %}
+  <div class="stepper-wrap">
+    <div class="container">
+      <div class="stepper">
+
+        <div class="step {{ 'completed' if step > 1 else 'active' if step == 1 else '' }}">
+          <div class="step-circle">{% if step > 1 %}✓{% else %}1{% endif %}</div>
+          <div class="step-label">Prohibited<br>Practices</div>
+        </div>
+
+        <div class="step-connector {{ 'done' if step > 1 }}"></div>
+
+        <div class="step {{ 'completed' if step > 2 else 'active' if step == 2 else '' }}">
+          <div class="step-circle">{% if step > 2 %}✓{% else %}2{% endif %}</div>
+          <div class="step-label">System<br>Classification</div>
+        </div>
+
+        <div class="step-connector {{ 'done' if step > 2 }}"></div>
+
+        <div class="step {{ 'completed' if step > 3 else 'active' if step == 3 else '' }}">
+          <div class="step-circle">{% if step > 3 %}✓{% else %}3{% endif %}</div>
+          <div class="step-label">System<br>Features</div>
+        </div>
+
+        <div class="step-connector {{ 'done' if step > 3 }}"></div>
+
+        <div class="step {{ 'active' if step == 4 else '' }}">
+          <div class="step-circle" style="{% if step == 4 %}background:var(--orange);border-color:var(--orange);color:#fff;{% endif %}">
+            {% if step == 4 %}✓{% else %}4{% endif %}
+          </div>
+          <div class="step-label">Results</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <main class="container py-4">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    Based on Regulation (EU) 2024/1689 &middot; Not legal advice &middot; For architecture decision support only
+  </footer>
+
 </body>
 </html>
