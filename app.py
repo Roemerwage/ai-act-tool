@@ -76,7 +76,8 @@ def results():
         elif is_gpai and qa in gpai_qas:
             grouped[qa] = entries
         elif triggers_transparency and qa == 'Transparency':
-            grouped[qa] = entries
+            # Art. 13 applies to high-risk systems only; Art. 50 applies to all transparency-triggering systems
+            grouped[qa] = [e for e in entries if 'Article 50' in e['article']]
 
     # Derive classification label for the results template
     if is_high_risk:
